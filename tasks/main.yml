@@ -9,13 +9,13 @@
     - vars
 
 - name: Create directory for ansible custom facts
-  ansible.builtin.file:
+  file:
     state: directory
     recurse: true
     path: /etc/ansible/facts.d
 
 - name: Create facts file from template
-  ansible.builtin.template:
+  template:
     src: 'etc/ansible/facts.d/rclone.fact.j2'
     dest: /etc/ansible/facts.d/rclone.fact
     mode: '0755'
@@ -23,7 +23,7 @@
 
 - name: Re-read facts after adding custom fact
   become: true
-  ansible.builtin.setup:
+  setup:
     filter: ansible_local
 
 - block:
